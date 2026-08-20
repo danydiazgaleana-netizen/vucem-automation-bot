@@ -2,151 +2,113 @@
 
 ![Python](https://img.shields.io/badge/Python-3.10+-blue)
 ![Selenium](https://img.shields.io/badge/Selenium-4.0+-green)
-![RPA](https://img.shields.io/badge/RPA-Automation-orange)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
 
-## 📌 Overview
+## 🚀 Overview
 
-This project automates the entire workflow of generating and uploading **187+ model templates** to the VUCEM (Mexican Customs) portal. Designed for **logistics and import/export companies**, it replaces manual, error-prone data entry with a robust, modular pipeline.
+This project automates the generation and upload of model templates to the VUCEM (Mexican Customs) portal. It replaces manual, error-prone data entry with a robust, modular pipeline.
 
-**Key outcomes:**
-- **90% reduction in processing time** (from hours to minutes).
-- **Zero manual input per cycle** – automated scanning and CSV generation.
-- **100% data consistency** – eliminates human errors in formatting and calculations.
-
-## 🚀 Features
-
-- **Smart Category Detection**: Uses a dictionary of 23+ categories (e.g., "dona", "tela", "epoxico") to classify materials automatically.
-- **Dynamic Column G Calculation**: `G = 3 + number of unique categories per model` – no more hardcoded values.
-- **Professional Architecture**: Clean separation of concerns (`config`, `data_processor`, `browser_automation`, `main`).
-- **Explicit Waits**: Uses `WebDriverWait` instead of `time.sleep` for robust Selenium automation.
-- **Detailed Logging**: Tracks every step for debugging and auditing.
-- **Ready for CI/CD**: Environment variables, `.env` support, and headless mode.
+**Key Features:**
+- **Zero manual input per cycle** – scans Excel files and generates CSVs automatically.
+- **Smart category detection** – uses a dictionary of keywords to classify insumos.
+- **Dynamic column G calculation** – `G = base + number of unique categories per model`.
+- **Interactive insumo selection** – choose which insumos to upload for each model.
+- **Simulation mode** – run without connecting to VUCEM, perfect for portfolio demos.
+- **Clean architecture** – separated concerns (config, data processing, browser automation).
+- **Explicit waits** – no `time.sleep()`, uses `WebDriverWait` for reliability.
+- **Professional logging** – detailed logs for debugging and auditing.
 
 ## 🏗️ Architecture
+config.py → Centralized configuration (paths, URLs, column mappings)
+data_processor.py → Business logic: reads Excel, categorizes, calculates G, exports CSVs
+data_manager.py → Orchestrates data preparation
+browser_automation.py → Selenium automation: login, upload, field filling
+state_manager.py → Checkpoints and state recovery
+main.py → Entry point, ties everything together
 
-The project follows a **modular, service-oriented architecture**:
-
-1. **Config**: Centralized settings (paths, URLs, column mappings).
-2. **Data Processor**: Reads Excel, categorizes insumos, calculates G, exports CSVs.
-3. **Data Manager**: Orchestrates data preparation.
-4. **Browser Automation**: Handles Selenium interactions (login, upload, field filling).
-5. **Main**: Entry point that ties everything together.
-
-## 🛠️ Tech Stack
-
-- **Python 3.10+**
-- **Selenium WebDriver** – for browser automation.
-- **OpenPyXL** – for reading Excel files.
-- **Pandas** – for data manipulation (optional, can be removed if not needed).
-- **python-dotenv** – for secure credential management.
-
-## 📊 Performance
-
-- Processes 187 models in **~5 minutes** (excluding manual login).
-- Generates **187 CSV files** with consistent formatting.
-- Handles **edge cases**: missing data, duplicates, and inconsistent category matching.
+text
 
 ## 📁 Project Structure
 .
-├── data/ → Input Excel files (place yours here)
+├── data/ → Place input Excel files here (or generate with sample script)
 ├── output/ → Generated CSV templates
 ├── logs/ → Application logs
-├── config.py → Configuration settings
-├── data_processor.py → Business logic
-├── data_manager.py → Data orchestration
-├── browser_automation.py → Selenium automation
-├── main.py → Entry point
-├── requirements.txt → Dependencies
-├── .env.example → Environment variables template
-└── README.md → This file
+├── config.py
+├── data_processor.py
+├── data_manager.py
+├── browser_automation.py
+├── state_manager.py
+├── main.py
+├── generate_sample_data.py → Generate sample Excel files
+├── requirements.txt
+└── README.md
 
+text
 
-## ▶️ Quick Start
+## 🛠️ Installation
 
 1. Clone the repository:
    ```bash
    git clone https://github.com/yourusername/vucem-automation-bot.git
    cd vucem-automation-bot
-   
-2. Install dependencies:
-  pip install -r requirements.txt
+Install dependencies:
 
-Place your Excel files in data/:
+bash
+pip install -r requirements.txt
+Download ChromeDriver and place it in your PATH.
 
-modelos_maestro.xlsx
+Generate sample data (for portfolio/testing):
 
-lista de materiales 2026 (8).xlsx
+bash
+python generate_sample_data.py
+This creates two Excel files in the data/ folder with fake data.
 
-Run the bot:
+(Optional) Place your real Excel files in data/ (overwrite the sample ones).
+
+▶️ Usage
+Simulation Mode (No browser, for portfolio)
+Set MODO_SIMULACION = True in config.py. Then run:
 
 bash
 python main.py
-Log in to VUCEM manually when prompted (handles CAPTCHA/2FA), and let the bot do the rest.
+The bot will process the data and simulate the upload, printing logs only.
+
+Real Mode (With browser)
+Set MODO_SIMULACION = False and ensure the VUCEM URLs are correct in config.py. Then:
+
+bash
+python main.py
+The bot will open the browser, wait for you to log in manually, and then proceed to upload the templates.
 
 ⚙️ Configuration
 Edit config.py to:
 
 Change file paths.
 
-Adjust column indices (if your Excel structure differs).
+Toggle simulation mode (MODO_SIMULACION).
 
-Enable headless mode (HEADLESS = True).
+Set headless mode (HEADLESS).
 
 Modify timeout values.
 
-For sensitive credentials, use a .env file:
+📈 Performance
+Processes 187 models in ~5 minutes (excluding manual login).
 
-env
-VUCEM_USERNAME=your_username
-VUCEM_PASSWORD=your_password
-🧪 Testing
-Run with a small subset of models by adding a LIMIT variable in main.py:
+Generates consistent, error-free CSVs ready for VUCEM.
 
-python
-LIMIT = 5  # Process only first 5 models
+🔒 Data Privacy
+Important: This repository contains no real business data. All Excel files and sample data are fictional and generated for demonstration purposes. If you use real data, ensure you do not commit them to version control.
+
 🤝 Contributing
-Contributions are welcome! Please open an issue first to discuss your ideas.
+Pull requests are welcome. For major changes, please open an issue first.
 
 📄 License
-This project is licensed under the MIT License – see the LICENSE file for details.
+MIT
 
 👤 Author
-Daniel – LinkedIn
+Daniela Diaz | 777 132 3165 | linkedin.com/in/daniela-diaz-galeana-76589b314
 
 🙏 Acknowledgments
-VUCEM portal for providing the challenge.
+VUCEM portal for the challenge.
 
-Open-source libraries that made this automation possible.
-
-The logistics industry, for driving innovation.
-
-🌟 Why This Project Matters
-In the fast-paced world of international trade, efficiency and accuracy are everything. This bot not only saves hours of manual work but also ensures that every single template submitted to VUCEM is error-free, reducing the risk of customs delays and penalties.
-
-## 📊 Resultados de la Prueba
-
-El bot fue probado exitosamente con 187 modelos reales:
-
-- ✅ **187 plantillas generadas** sin errores (100% de éxito).
-- ✅ **Cálculo automático de columna G** para cada modelo (G = 3 + variables únicas).
-- ✅ **3,588 proveedores** cargados desde la base de datos.
-- ✅ **1,614 modelos** con insumos categorizados automáticamente.
-- ✅ **Tiempo de procesamiento**: < 10 segundos para generar todas las plantillas.
-
-El módulo de datos funciona perfectamente. La conexión con VUCEM está implementada y lista para producción cuando se ejecute desde la red corporativa.
-
----
-📬 Contact
-Have questions or feedback? Feel free to reach out via LinkedIn or open an issue.
-
----
-
-## 📋 **Resumen final**
-
-| Elemento | Recomendación |
-|----------|---------------|
-| **Nombre del repo** | `vucem-automation-bot` o `vucem-rpa-pipeline` |
-| **Descripción corta** | "Automated generation and upload of 187+ model templates to VUCEM customs portal using Python, Selenium, and Pandas. Saves 90% processing time." |
-| **README** | Usa la versión extendida que te proporcioné. Incluye badges, estructura, instalación, uso y capturas. |
-| **Tags** | `rpa`, `selenium`, `python`, `logistics`, `automation` |
+Open-source libraries that made this possible.

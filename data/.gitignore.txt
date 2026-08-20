@@ -1,0 +1,26 @@
+# Datos reales (confidenciales)
+data/modelos_maestro.xlsx
+data/lista de materiales 2026 (8).xlsx
+data/*.xlsx
+data/*.xls
+
+# Outputs generados
+output/
+logs/
+*.log
+
+# Archivos de estado
+processed_models.json
+failed_models.json
+vucem_execution.log
+bot.log
+
+# Entornos virtuales
+venv/
+env/
+.env
+__pycache__/
+*.pyc
+
+# Configuración local (opcional)
+config_local.py

@@ -1,0 +1,32 @@
+{
+  "completed": [
+    "000000084296 Miss Circus Ringmaster",
+    "000000027983 Little Goo",
+    "000000030100 Toothy Clown",
+    "000000029011 Yeti Mega Costume",
+    "000000084812 Serial Killer Apron",
+    "000000030145 Creepy T.W."
+  ],
+  "completed_details": {
+    "000000029011 Yeti Mega Costume": {
+      "folio": "",
+      "timestamp": "2026-08-17T12:12:16.335507"
+    },
+    "000000030145 Creepy T.W.": {
+      "folio": "0201100100120261729000568",
+      "timestamp": "2026-08-17T12:52:32.340180"
+    },
+    "000000030100 Toothy Clown": {
+      "folio": "0201100100120261729000577",
+      "timestamp": "2026-08-18T09:19:39.789241"
+    },
+    "000000084812 Serial Killer Apron": {
+      "folio": "0201100100120261729000578",
+      "timestamp": "2026-08-18T10:42:35.170261"
+    },
+    "000000084296 Miss Circus Ringmaster": {
+      "folio": "",
+      "timestamp": "2026-08-18T16:52:46.221947"
+    }
+  }
+}

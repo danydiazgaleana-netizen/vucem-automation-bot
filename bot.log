@@ -1,3 +1,0 @@
-2026-08-10 12:36:27,715 - INFO - === Iniciando Bot VUCEM ===
-2026-08-10 12:36:28,489 - INFO - Maestro cargado: 187 filas
-2026-08-10 12:36:28,490 - CRITICAL - Error al preparar los datos: Columnas faltantes en el Excel: ['código', 'nombre', 'precio factura', 'fracción/código arancel', 'insumos', 'precio unitario']

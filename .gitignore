@@ -1,0 +1,33 @@
+# Archivos de caché de Python
+__pycache__/
+*.pyc
+
+# Logs y archivos de estado
+*.log
+logs/
+processed_models.json
+failed_models.json
+vucem_execution.log
+bot.log
+
+# Reportes generados
+reporte_folios_*.xlsx
+reporte_*.html
+
+# Datos reales (confidenciales) - NUNCA SUBIR
+data/*.xlsx
+data/*.xls
+
+# Outputs generados
+output/
+
+# Archivos temporales de depuración
+debug_page.html
+
+# Entornos virtuales
+venv/
+env/
+.env
+
+# Archivos de configuración local
+config_local.py

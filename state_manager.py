@@ -3,7 +3,11 @@ import logging
 from pathlib import Path
 from datetime import datetime
 import pandas as pd
-from config import Config
+
+try:
+    from config_local import Config
+except ImportError:
+    from config import Config
 
 class StateManager:
     def __init__(self, state_file: Path = None, fail_file: Path = None):

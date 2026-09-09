@@ -8,9 +8,9 @@ class Config:
     OUTPUT_DIR = BASE_DIR / "output"
     LOGS_DIR = BASE_DIR / "logs"
 
-    # Archivos de entrada (nombres genéricos)
+    # Archivos de entrada (nombres genéricos — versión pública/simulación)
     MASTER_EXCEL_PATH = DATA_DIR / "modelos_maestro.xlsx"
-    BOM_EXCEL_PATH = DATA_DIR / "lista_materiales.xlsx"
+    BOM_EXCEL_PATH    = DATA_DIR / "lista_materiales_bom.xlsx"
 
     # URLs de VUCEM (para modo real)
     VUCEM_URL = "https://www.ventanillaunica.gob.mx/vucem/Ingreso.html"
@@ -21,8 +21,8 @@ class Config:
     HEADLESS = False
     CHROME_DRIVER_PATH = None
 
-    # Modo simulación (True para pruebas, False para producción)
-    MODO_SIMULACION = True   # <--- IMPORTANTE: mantener en True para GitHub
+    # Modo simulación — True para GitHub/demos, False solo en config_local.py
+    MODO_SIMULACION = True
 
     # Selectores (definidos pero no validados en producción aún)
     SELECTORS = {

@@ -3,11 +3,25 @@ Script Principal de Orquestación - Automatización VUCEM
 Autor: Daniela Diaz Galeana
 Descripción: Coordina la carga de datos, checkpoints y ejecución
 de la automatización en VUCEM. Menú interactivo que se repite después de cada modelo.
+
+Configuración:
+  - Si existe config_local.py en el directorio → usa configuración real (producción)
+  - Si no existe                               → usa config.py pública (simulación/GitHub)
 """
 import logging
 import sys
 import time
-from config import Config
+
+# ------------------------------------------------------------------ #
+# Carga dinámica de configuración: local (real) o pública (simulación)#
+# ------------------------------------------------------------------ #
+try:
+    from config_local import Config
+    _config_mode = "LOCAL (producción real)"
+except ImportError:
+    from config import Config
+    _config_mode = "PÚBLICA (simulación / GitHub)"
+
 from data_manager import DataManager
 from browser_automation import VUCEMAutomation, SessionExpiredException
 from state_manager import StateManager
@@ -27,6 +41,7 @@ logging.basicConfig(
 
 console = Console()
 MAX_RETRIES_PER_MODEL = 3
+
 
 def mostrar_menu(modelos, state_mgr):
     """Muestra el menú interactivo con modelos pendientes y opciones."""
@@ -93,6 +108,7 @@ def mostrar_menu(modelos, state_mgr):
             else:
                 console.print("[red]No se encontró ningún modelo con ese nombre.[/]")
 
+
 def procesar_modelo(bot, state_mgr, modelo, modo_automatico=False):
     """Procesa un modelo con reintentos y retorna (success, folio)."""
     codigo = modelo['codigo']
@@ -118,8 +134,11 @@ def procesar_modelo(bot, state_mgr, modelo, modo_automatico=False):
                 return False, None
     return False, None
 
+
 def main():
-    logging.info("🚀 Iniciando sistema automatizado de comercio exterior - VUCEM")
+    logging.info(f"🚀 Iniciando VUCEM Automation Bot")
+    logging.info(f"⚙️  Configuración activa: {_config_mode}")
+    logging.info(f"🔧  Modo simulación: {Config.MODO_SIMULACION}")
 
     # 1. Preparar datos
     data_mgr = DataManager()
@@ -156,7 +175,6 @@ def main():
 
         # Bucle interactivo: muestra menú después de cada modelo
         while True:
-            # Refrescar pendientes
             pending = state_mgr.get_pending(all_models)
             if not pending:
                 logging.info("✅ Todos los modelos pendientes han sido procesados.")
@@ -169,7 +187,6 @@ def main():
                 break
 
             elif opcion == 'E':
-                # Exportar reporte Excel
                 excel_path = state_mgr.export_report_excel()
                 if excel_path:
                     console.print(f"[green]✅ Reporte Excel generado: {excel_path}[/]")
@@ -189,7 +206,7 @@ def main():
                     codigo = f['codigo']
                     modelo = next((m for m in all_models if m['codigo'] == codigo), None)
                     if modelo is None:
-                        logging.error(f"⚠️ Modelo con código {codigo} no encontrado en la lista original.")
+                        logging.error(f"⚠️ Modelo {codigo} no encontrado en la lista original.")
                         continue
                     state_mgr.failures = [x for x in state_mgr.failures if x['codigo'] != codigo]
                     state_mgr._save_failures()
@@ -202,7 +219,6 @@ def main():
                 continue
 
             else:
-                # Selección de modelo por número
                 idx = int(opcion) - 1
                 modelo = pending[idx]
                 success, folio = procesar_modelo(bot, state_mgr, modelo, modo_automatico=False)
@@ -227,13 +243,14 @@ def main():
         logging.info("🏁 Procesamiento finalizado.")
         logging.info(f"📊 Resumen de esta sesión:")
         logging.info(f"   ✅ Procesados en esta sesión: {exitos_sesion}")
-        logging.info(f"   ❌ Fallos en esta sesión: {fallos_sesion}")
+        logging.info(f"   ❌ Fallos en esta sesión:     {fallos_sesion}")
         logging.info(f"📊 Acumulado total:")
         logging.info(f"   ✅ Total procesados: {summary['processed']}")
-        logging.info(f"   ❌ Total fallidos: {summary['failed']}")
+        logging.info(f"   ❌ Total fallidos:   {summary['failed']}")
         if summary['failed'] > 0:
-            logging.info(f"   📄 Revisa 'failed_models.json' para detalles.")
+            logging.info("   📄 Revisa 'failed_models.json' para detalles.")
         logging.info("=" * 60)
+
 
 if __name__ == "__main__":
     main()

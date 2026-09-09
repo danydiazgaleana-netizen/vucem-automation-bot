@@ -23,7 +23,10 @@ from selenium.common.exceptions import (
     StaleElementReferenceException
 )
 from selenium.webdriver.chrome.service import Service
-from config import Config
+try:
+    from config_local import Config
+except ImportError:
+    from config import Config
 
 
 class SessionExpiredException(Exception):

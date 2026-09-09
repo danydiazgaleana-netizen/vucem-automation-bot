@@ -225,7 +225,7 @@ MIT License — see [LICENSE](LICENSE) for details.
 
 ## 📞 Contact
 
-Questions or collaboration? Reach out via [LinkedIn](https://linkedin.com/in/daniela-diaz-galeana) or [GitHub](https://github.com/danydiazgaleana-netizen).
+Questions or collaboration? Reach out via [LinkedIn](linkedin.com/in/daniela-diaz-galeana-76589b314) or [GitHub](https://github.com/danydiazgaleana-netizen).
 
 ---
 

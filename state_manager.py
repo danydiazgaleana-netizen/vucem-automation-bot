@@ -234,3 +234,4 @@ class StateManager:
         with open(self.report_file, 'w', encoding='utf-8') as f:
             f.write(html)
         logging.info(f"📄 Reporte HTML generado: {self.report_file}")# sm
+# sm

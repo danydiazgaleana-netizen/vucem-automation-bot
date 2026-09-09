@@ -52,3 +52,4 @@ class Config:
         cls.DATA_DIR.mkdir(parents=True, exist_ok=True)
         cls.OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
         cls.LOGS_DIR.mkdir(parents=True, exist_ok=True)# config
+# config

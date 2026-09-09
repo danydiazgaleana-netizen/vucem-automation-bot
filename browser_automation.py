@@ -725,4 +725,4 @@ class VUCEMAutomation:
     def close(self):
         if self.driver:
             self.driver.quit()
-            logging.info("🛑 Browser cerrado.")
+            logging.info("🛑 Browser cerrado.")# ba

@@ -53,3 +53,4 @@ class DataManager:
             })
         logging.info(f"📦 {len(self.models)} modelos listos para el bot.")
         return self.models
+# dm
